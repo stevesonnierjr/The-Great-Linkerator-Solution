@@ -15,9 +15,15 @@ const SearchBar = () => {
 
   return (
     <SearchBar
-      value={this.state.value}
-      onChange={(newValue) => this.setState({ value: newValue })}
-      onRequestSearch={() => doSomethingWith(this.state.value)}
+      dataSource={state.dataSource}
+      onChange={(value) =>
+        setState({ dataSource: [value, value + value, value + value + value] })
+      }
+      onRequestSearch={() => console.log("onRequestSearch")}
+      style={{
+        margin: "0 auto",
+        maxWidth: 800,
+      }}
     />
   );
 };
