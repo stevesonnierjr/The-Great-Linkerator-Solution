@@ -5,7 +5,6 @@ import Header from "./Header";
 import SearchBar from "./SearchBar";
 import LinkList from './LinkList';
 import Linkmodal from "./Linkmodal";
-import { LinkedIn } from "@material-ui/icons";
 
 const App = () => {
   const [postModal, setPostModal] = useState(false);
@@ -49,7 +48,8 @@ const App = () => {
       setEditModal={setEditModal}
       setLinkID={setLinkID}
       setLinkComment={setLinkComment}
-      setLinkCount={setLinkCount} />
+      setLinkCount={setLinkCount}
+      links={links} />
     </>
     );
   };

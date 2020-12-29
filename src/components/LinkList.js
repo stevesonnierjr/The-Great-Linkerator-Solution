@@ -9,7 +9,8 @@ const LinkList = ({
   setEditModal,
   setLinkID,
   setLinkComment,
-  setLinkCount
+  setLinkCount,
+  links
 }) => {
   
   return (
