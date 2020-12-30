@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import hitAPI from '../api/index';
-import { Route, Redirect, Switch } from "react-router-dom";
-
-import Button from '@material-ui/core/Button';
+// import { Route, Redirect, Switch } from "react-router-dom";
 
 import Header from "./Header";
 // import Search from "./SearchBar";
@@ -48,8 +46,7 @@ const App = () => {
       setLinkID={setLinkID}
       setLinkComment={setLinkComment}
       setLinkCount={setLinkCount}
-      links={links}
-      setLinks={setLinks} />
+      links={links} />
     </>
     );
   };

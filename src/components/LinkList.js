@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import hitAPI from '../api/index';
 
 import { Card } from "@material-ui/core";
@@ -10,8 +10,7 @@ const LinkList = ({
   setLinkID,
   setLinkComment,
   setLinkCount,
-  links,
-  setLinks
+  links
 }) => {
   
   return (
