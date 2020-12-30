@@ -11,7 +11,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, "build")));
 
 app.get("/", (req, res) => {
-  res.send("yeet");
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const startServer = new Promise((resolve) => {

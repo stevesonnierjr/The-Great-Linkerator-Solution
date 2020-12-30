@@ -10,14 +10,14 @@ const LinkList = ({
   setLinkID,
   setLinkComment,
   setLinkCount,
-  links
+  links,
+  setLinks
 }) => {
   
   return (
     <div className="link-list">
       <h3>link list</h3>
-      {links ? (
-        links.map((link) => {
+      {links.map((link) => {
           return (
           <Card className="link" key={link.id}>
             <h1><a href={link.link}>{link.link}</a></h1>
@@ -34,10 +34,7 @@ const LinkList = ({
             </IconButton>
           </Card>
         );
-      })
-      ) : (
-        <h1>Links should go here</h1>
-      )}
+      })}
     </div>
   );
 }
