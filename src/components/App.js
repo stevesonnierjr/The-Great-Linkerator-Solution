@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import hitAPI from '../api/index';
+// import { Route, Redirect, Switch } from "react-router-dom";
 
 import Header from "./Header";
-import SearchBar from "./SearchBar";
+// import Search from "./SearchBar";
 import LinkList from './LinkList';
 import Linkmodal from "./Linkmodal";
 
@@ -14,7 +15,7 @@ const App = () => {
   const [linkCount, setLinkCount] = useState(null);
   const [links, setLinks] = useState([]); //list of all links
   console.log(links);
-  
+
   useEffect(() => {
     hitAPI("GET", "links")
     .then((data) => {
@@ -27,11 +28,7 @@ const App = () => {
     <>
     <Header />
     <div className="search-post">
-      <SearchBar />
-      <Button
-      variant="contained"
-      color="primary"
-      onClick={setPostModal(true)}>New Link</Button>
+      {/* <Search /> */}
     </div>
     <Linkmodal
       postModal={postModal}

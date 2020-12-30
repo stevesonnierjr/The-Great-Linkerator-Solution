@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "material-ui-search-bar";
 
-const SearchBar = () => {
+const Search = () => {
   const [links, setLinks] = useState([]);
-  // console.log(links);
-
-  // useEffect(() => {
-  //   hitAPI("GET", "links")
-  //     .then((data) => {
-  //       setLinks(data);
-  //     })
-  //     .catch(console.error);
-  // }, []);
+  const doSomethingWith = null;
 
   return (
     <SearchBar
@@ -22,4 +14,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default Search;

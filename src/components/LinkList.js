@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import hitAPI from '../api/index';
 
 import { Card } from "@material-ui/core";
@@ -16,8 +16,7 @@ const LinkList = ({
   return (
     <div className="link-list">
       <h3>link list</h3>
-      {links ? (
-        links.map((link) => {
+      {links.map((link) => {
           return (
           <Card className="link" key={link.id}>
             <h1><a href={link.link}>{link.link}</a></h1>
@@ -34,10 +33,7 @@ const LinkList = ({
             </IconButton>
           </Card>
         );
-      })
-      ) : (
-        <h1>Links should go here</h1>
-      )}
+      })}
     </div>
   );
 }
