@@ -1,17 +1,20 @@
-const express = require("express");
-const path = require("path");
+const express = require('express');
+const path = require('path');
 
-const { sync } = require("./data_layer/index");
+const { sync } = require('./db/index');
 
 const PORT = process.env.PORT || 3001;
 const FORCE = process.env.FORCE || false;
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, 'build')));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+const apiRouter = require('./api');
+app.use('/api', apiRouter);
+
+app.get('/', (req, res) => {
+  res.send('yeet');
 });
 
 const startServer = new Promise((resolve) => {
