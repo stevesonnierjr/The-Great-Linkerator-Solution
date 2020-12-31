@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from "react";
-import Button from '@material-ui/core/Button';
-import Modal from '@material-ui/core/Modal';
-import hitAPI from '../api/index';
+import React, { useState, useEffect } from "react";
+import Button from "@material-ui/core/Button";
+import Modal from "@material-ui/core/Modal";
+import hitAPI from "../api/index";
 
 const Linkmodal = () => {
   const [showModal, setShowModal] = useState(false);
   const [link, setLink] = useState("");
-  const [comment, setComment]= useState("");
+  const [comment, setComment] = useState("");
   const [tags, setTags] = useState([]);
 
   function clearInputs() {
@@ -16,7 +16,7 @@ const Linkmodal = () => {
   }
   // const [links, setLinks] = useState([]);
   // console.log(links);
-  
+
   // useEffect(() => {
   //   hitAPI("GET", "links")
   //   .then((data) => {
@@ -24,25 +24,30 @@ const Linkmodal = () => {
   //   })
   //   .catch(console.error);
   // }, []);
-  
+
   return (
     <>
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={setShowModal(true)}>New Link</Button>
+      <Button variant="contained" color="primary" onClick={setShowModal(true)}>
+        New Link
+      </Button>
       {showModal ? (
         <Modal className="modal">
           <h2>Create a link</h2>
           <div className="form">
             <form>
               <div className="inputs">
-                <input type="text" placeholder="Enter URL"
+                <input
+                  type="text"
+                  placeholder="Enter URL"
                   value={link}
-                  onChange={setLink(event.target.value)} />
-                <textarea placeholder="Enter a comment" rows="4"
+                  onChange={(event) => setLink(event.target.value)}
+                />
+                <textarea
+                  placeholder="Enter a comment"
+                  rows="4"
                   value={comment}
-                  onChange={setComment(event.target.value)}></textarea>
+                  onChange={(event) => setComment(event.target.value)}
+                ></textarea>
               </div>
               <div className="buttons">
                 <Button>Submit</Button>
@@ -50,16 +55,19 @@ const Linkmodal = () => {
                   variant="contained"
                   color="secondary"
                   onClick={() => {
-                    clearInputs(); 
-                    setShowModal(false);                 
-                  }}>Cancel</Button>
+                    clearInputs();
+                    setShowModal(false);
+                  }}
+                >
+                  Cancel
+                </Button>
               </div>
             </form>
           </div>
-      </Modal>
+        </Modal>
       ) : null}
     </>
   );
-}
+};
 
 export default Linkmodal;
