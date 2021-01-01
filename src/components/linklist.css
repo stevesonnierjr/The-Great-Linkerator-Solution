@@ -1,4 +1,66 @@
 .link-list {
   flex: 6;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  overflow: auto;
+}
+
+table, tr:not(:last-of-type) {
+  /* border-bottom: 2px solid lightgray; */
+  border-collapse: collapse;
+  width: 500px;
+}
+
+table {
+  border-bottom: none;
+}
+
+/* table > tbody > tr:last-of-type > td {
+  border-bottom: none;
+} */
+
+table {
+  /* width: auto; */
+  width: 95vw;
+  max-width: 1250px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  text-align: left;
+}
+
+tr:nth-child(even) {
   background-color: aliceblue;
+}
+
+td {
+  padding: 5px;
+  word-break: break-word;
+}
+
+th {
+  padding: 10px;
+  background-color: lightblue;
+  border: none;
+  width: 500px;
+}
+
+.link > td:first-of-type {
+  border-left: none;
+}
+
+.link > td:last-of-type {
+  border-right: none;
+  text-align: right;
+}
+
+.edit {
+  height: 30px;
+  width: 30px;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
 }

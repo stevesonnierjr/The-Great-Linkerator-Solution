@@ -17,16 +17,16 @@ const App = () => {
   const initialLinks = [
     {
       id: "ab38f156-7ceb-468c-8df4-3bb640b9f77e",
-      link: "www.google.com",
-      comment: "go to google",
+      link: "https://www.google.com/",
+      comment: "go to google, go to google, go to google",
       clickcount: 1,
     },
     {
       id: "0df12366-98f3-46cf-ac09-943fb1a988f9",
-      link: "www.youtube.com",
-      comment: "go to youtube",
+      link: "https://www.youtube.com/",
+      comment: "go to youtube, go to youtube, go to youtube",
       clickcount: 1,
-    },
+    }
   ];
   const [postModal, setPostModal] = useState(false);
   const [editModal, setEditModal] = useState(false);

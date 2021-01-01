@@ -14,28 +14,44 @@ const LinkList = ({
 }) => {
   return (
     <div className='link-list'>
-      <h3>link list</h3>
-      {links.map((link) => {
-        return (
-          <Card className='link' key={link.id}>
-            <h1>
-              <a href={link.link}>{link.link}</a>
-            </h1>
-            <h3>{link.comment}</h3>
-            <p>{link.clickCount}</p>
-            <IconButton
-              className='edit'
-              onClick={() => {
-                setLinkID(link.id);
-                setLinkComment(link.comment);
-                setLinkCount(link.clickCount);
-                setEditModal(true);
-              }}>
-              <EditIcon />
-            </IconButton>
-          </Card>
-        );
-      })}
+      <h3>links</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style={{width: '48%'}}>URL</th>
+            <th style={{width: '1%'}}>Clicks</th>
+            <th style={{width: '25%'}}>Comments</th>
+            <th style={{width: '25%'}}>Tags</th>
+            <th style={{width: '1%'}}></th>
+          </tr>
+        </thead>
+        <tbody>
+          {links.map((link) => {
+            return (
+              <tr className='link' key={link.id}>
+                <td style={{width: '48%'}}>
+                  <a href={link.link} target="_blank">{link.link}</a>
+                </td>
+                <td style={{width: '1%'}}>{link.clickcount-1}</td>
+                <td style={{width: '25%'}}>{link.comment}</td>
+                <td style={{width: '25%'}}>{link.tags}</td>
+                <td style={{width: '1%'}}>
+                  <IconButton
+                    className='edit'
+                    onClick={() => {
+                      setLinkID(link.id);
+                      setLinkComment(link.comment);
+                      setLinkCount(link.clickCount);
+                      setEditModal(true);
+                    }}>
+                    <EditIcon className="icon" />
+                  </IconButton>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };

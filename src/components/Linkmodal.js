@@ -72,7 +72,7 @@ const Linkmodal = ({
               <div className='inputs'>
                 <input
                   type='text'
-                  placeholder='Enter URL'
+                  placeholder='Enter URL exactly as it appears in browser'
                   value={link}
                   onChange={(event) => setLink(event.target.value)}
                   required
