@@ -10,11 +10,13 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-const apiRouter = require('./api');
-app.use('/api', apiRouter);
+// const apiRouter = require('./api');
+// app.use('/api', apiRouter);
+app.use(express.json());
+app.use("/api", require("./api/index"));
 
 app.get('/', (req, res) => {
-  res.send('yeet');
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 const startServer = new Promise((resolve) => {

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "start:dev": "nodemon index.js & npm run build:dev",
+    "start:dev": "nodemon index.js",
     "build": "react-scripts build",
     "build:dev": "node watcher.js",
     "start:front": "react-scripts start"
