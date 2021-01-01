@@ -1,3 +1,13 @@
-.post-modal {
-  
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-body, .edit-body {
+  position: absolute;
+  height: 300px;
+  width: 400px;
+  background-color: white;
+  border-radius: 5px;
 }

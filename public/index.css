@@ -1,0 +1,21 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  max-width: 100vw;
+  font-family: Roboto;
+}
+
+.app {
+  display: flex;
+}
+
+.search-post {
+  flex: 1;
+  background-color: lightgreen;
+}
