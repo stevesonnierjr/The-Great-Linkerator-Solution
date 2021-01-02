@@ -40,13 +40,13 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   console.log(links);
 
-  useEffect(() => {
-    // hitAPI("GET", "links")
-    // .then((data) => {
-    //   setLinks(data);
-    // })
-    // .catch(console.error);
-    // }, []);
+  // useEffect(() => {
+  //   hitAPI("GET", "links")
+  //   .then((data) => {
+  //     setLinks(data);
+  //   })
+  //   .catch(console.error);
+  //   }, []);
 
   function filterLink() {
     return links.filter((url) => {
