@@ -41,7 +41,7 @@ const App = () => {
       link: "https://www.amazon.com/",
       comment: "go to amazon, go to amazon, go to amazon",
       clickcount: 15,
-    }
+    },
   ];
   const [postModal, setPostModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
@@ -71,9 +71,9 @@ const App = () => {
       <Header />
       <div className='search-post'>
         <Input
-          className="searchbar"
-          type="search"
-          placeholder="Search for Links"
+          className='searchbar'
+          type='search'
+          placeholder='Search for Links'
           value={searchTerm}
           onChange={(event) => {
             setSearchTerm(event.target.value);

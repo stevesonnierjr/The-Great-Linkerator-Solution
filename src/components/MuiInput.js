@@ -5,7 +5,7 @@ const searchForm = ({ links, setLinks }) => {
 
   return (
     <Input
-      type="search"
+      type='search'
       value={searchTerm}
       onChange={(event) => setSearchTerm(event.target.value)}
     />
