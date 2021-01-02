@@ -1,15 +1,13 @@
-import React from "react";
-import Input from "@material-ui/core/Input";
+import React, { useState } from "react";
 
 const searchForm = ({ links, setLinks }) => {
-  const showLinks;
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <Input
       type="search"
-      value={this.state.value}
-      onChange={(newValue) => this.setState({ value: newValue })}
-      onRequestSearch={() => doSomethingWith(this.state.value)}
+      value={searchTerm}
+      onChange={(event) => setSearchTerm(event.target.value)}
     />
   );
 };
