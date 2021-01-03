@@ -1,7 +1,8 @@
 const express = require('express');
 const linksRouter = express.Router();
 
-const { createLink, getAllLinks } = require('../db/index');
+const { createLink, getAllLinks, updateLink } = require('../db/index');
+const { request } = require('express');
 
 linksRouter.use((req, res, next) => {
   console.log('a request is being made to links');
@@ -15,33 +16,40 @@ linksRouter.get('/', async (req, res) => {
   });
 });
 
-/*linksRouter.post('/', async (req, res, next) => {
+linksRouter.post('/', async (req, res, next) => {
   const { links, comment = '' } = req.body;
 
-  const tagArr = tags.trim().split(/\s+/);
-  const linksData = {};
+  try {
+    //linkData.links = links;
+    //linkData.comment = comment;
 
-  if (tagArr.length) {
-    linksData.tags = tagArr;
+    const link = await createLink({
+      links: 'www.nfl.com',
+      comment: 'sldfhjlskdjfsldjflsdjflj',
+    });
+    res.send(link);
+  } catch (error) {
+    next(error);
+  }
+});
+
+linksRouter.patch('/:id', async (req, res, next) => {
+  const { linkId } = req.params;
+  const { comment, clickCount } = req.body;
+
+  const updateFields = {};
+
+  updateFields.clickCount = clickCount++;
+  if (comment) {
+    updateFields.comment = comment;
   }
 
   try {
-    linksData.links = links;
-    linksData.comment = comment;
-
-    const link = await createLink(linksData);
-    console.log(link);
-    if (link) {
-      res.send(link);
-    } else {
-      next({
-        name: 'LinkCreationError',
-        message: 'There was an error creating your link. Please try again.',
-      });
-    }
+    const updatedLink = await updateLink(linkId, updateFields);
+    res.send({ link: updatedLink });
   } catch ({ name, message }) {
     next({ name, message });
   }
-});*/
+});
 
 module.exports = linksRouter;

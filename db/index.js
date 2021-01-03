@@ -10,13 +10,41 @@ async function createLink({ links, comment }) {
       INSERT INTO links(link, comment)
       VALUES ($1, $2)
       ON CONFLICT (link) DO NOTHING
-      returning *;
+      RETURNING *;
     `,
       [links, comment]
     );
 
     console.log(link);
     return link;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function updateLinks(id, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(', ');
+
+  if (setString.length === 0) {
+    return;
+  }
+
+  try {
+    const {
+      rows: [links],
+    } = await client.query(
+      `
+      UPDATE links
+      SET ${setString}
+      WHERE id=${id}
+      RETURNING *;
+    `,
+      Object.values(fields)
+    );
+
+    return links;
   } catch (error) {
     throw error;
   }
@@ -70,7 +98,7 @@ async function addTagsToLinks(linkId, tagList) {
 
     await Promise.all(createLinkTagPromises);
 
-    return await getPostById(linkId);
+    return await getLinkById(linkId);
   } catch (error) {
     throw error;
   }
@@ -90,6 +118,46 @@ async function getLinksByTagName(tagName) {
     );
 
     return await Promise.all(linkIds.map((post) => getLinkById(link.id)));
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function createTags(tagList) {
+  if (tagList.length === 0) {
+    return;
+  }
+
+  const valuesStringInsert = tagList
+    .map((_, index) => `$${index + 1}`)
+    .join('), (');
+
+  const valuesStringSelect = tagList
+    .map((_, index) => `$${index + 1}`)
+    .join(', ');
+
+  try {
+    // insert all, ignoring duplicates
+    await client.query(
+      `
+      INSERT INTO tags(name)
+      VALUES (${valuesStringInsert})
+      ON CONFLICT (name) DO NOTHING;
+    `,
+      tagList
+    );
+
+    // grab all and return
+    const { rows } = await client.query(
+      `
+      SELECT * FROM tags
+      WHERE name
+      IN (${valuesStringSelect});
+    `,
+      tagList
+    );
+
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -128,4 +196,5 @@ module.exports = {
   getAllTags,
   getAllLinks,
   getLinksByTagName,
+  updateLinks,
 };
