@@ -59,12 +59,12 @@ const Linkmodal = ({
                 console.log("I am link: ", body.link);
                 console.log("I am comment: ", body.comment);
 
-                // hitAPI("POST", "links", body)
-                // .then((data) => {
-                //   console.log("post successful!");
-                //   console.log("I am data", data);
-                // })
-                // .catch(console.error);
+                hitAPI("POST", "links", body)
+                .then((data) => {
+                  console.log("post successful!");
+                  console.log("I am data", data);
+                })
+                .catch(console.error);
 
                 clear();
                 setPostModal(false);
@@ -129,12 +129,12 @@ const Linkmodal = ({
                 console.log("I am body: ", body);
                 console.log("I am comment: ", body.comment);
 
-                // hitAPI("PATCH", `links/${linkID}`, body)
-                // .then((data) => {
-                //   console.log("update successful!")
-                //   console.log(data)
-                // })
-                // .catch(console.error);
+                hitAPI("PATCH", `links/${linkID}`, body)
+                .then((data) => {
+                  console.log("update successful!")
+                  console.log(data)
+                })
+                .catch(console.error);
 
                 clear();
                 setEditModal(false);

@@ -22,15 +22,13 @@ linksRouter.get("/", async (req, res) => {
 
 linksRouter.post('/', async (req, res, next) => {
   const { links, comment = '' } = req.body;
+  const linkData= {};
 
   try {
-    //linkData.links = links;
-    //linkData.comment = comment;
+    linkData.links = links;
+    linkData.comment = comment;
 
-    const link = await createLink({
-      links: 'www.nfl.com',
-      comment: 'sldfhjlskdjfsldjflsdjflj',
-    });
+    const link = await createLink();
     res.send(link);
   } catch (error) {
     next(error);
