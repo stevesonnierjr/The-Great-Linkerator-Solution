@@ -1,0 +1,9 @@
+.searchbar a :hover {
+  font-family: monospace;
+  display: flex;
+  align-items: center;
+}
+
+.searchbar {
+  background-color: whitesmoke;
+}

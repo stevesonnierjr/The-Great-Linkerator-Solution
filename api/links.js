@@ -1,15 +1,19 @@
-const express = require('express');
+const express = require("express");
 const linksRouter = express.Router();
+
 
 const { createLink, getAllLinks, updateLink } = require('../db/index');
 const { request } = require('express');
 
+
+
+
 linksRouter.use((req, res, next) => {
-  console.log('a request is being made to links');
+  console.log("a request is being made to links");
   next();
 });
 
-linksRouter.get('/', async (req, res) => {
+linksRouter.get("/", async (req, res) => {
   const links = await getAllLinks();
   res.send({
     links,

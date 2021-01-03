@@ -1,5 +1,5 @@
-const client = require('./client');
-const sync = require('./sync');
+const client = require("./client");
+const sync = require("./sync");
 
 async function createLink({ links, comment }) {
   try {
@@ -55,8 +55,8 @@ async function updateLinks(id, fields = {}) {
  */
 async function createInitialLinks() {
   try {
-    await createLink({ links: 'www.google.com', comment: 'go to google' });
-    await createLink({ links: 'www.youtube.com', comment: 'go to youtube' });
+    await createLink({ links: "www.google.com", comment: "go to google" });
+    await createLink({ links: "www.youtube.com", comment: "go to youtube" });
   } catch (error) {
     throw error;
   }
@@ -178,12 +178,12 @@ async function getAllTags() {
 
 async function testDB() {
   try {
-    console.log('creating initial links...');
+    console.log("creating initial links...");
     await sync();
     await createInitialLinks();
-    console.log('done!');
+    console.log("done!");
   } catch (error) {
-    console.log('error creating links!');
+    console.log("error creating links!");
     throw error;
   }
 }
