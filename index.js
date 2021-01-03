@@ -8,7 +8,13 @@ const FORCE = process.env.FORCE || false;
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "build")));
+
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, 'build')));
+
 
 // const apiRouter = require('./api');
 // app.use('/api', apiRouter);
@@ -21,6 +27,7 @@ app.get("/", (req, res) => {
 
 const startServer = new Promise((resolve) => {
   app.listen(PORT, () => {
+    console.log('server is up!');
     resolve();
   });
 });

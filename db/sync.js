@@ -1,5 +1,7 @@
-const client = require("./client");
-const { createLink } = require("./index");
+
+const client = require('./client');
+
+
 
 const sync = async (force = false) => {
   if (force) {

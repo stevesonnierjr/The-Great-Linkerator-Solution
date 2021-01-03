@@ -8,7 +8,8 @@ tagsRouter.use((req, res, next) => {
   next();
 });
 
-tagsRouter.get("/", async (req, res) => {
+tagsRouter.get('/', async (req, res, next) => {
+
   try {
     const tags = await getAllTags();
     res.send({
@@ -21,9 +22,12 @@ tagsRouter.get("/", async (req, res) => {
 
 tagsRouter.get("/:tagName/links", async (req, res) => {
   const { tagName } = req.params;
-
-  const links = await getLinksByTagName(tagName);
-  res.send({ links });
+  try {
+    const links = await getLinksByTagName(tagName);
+    res.send({ links });
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 module.exports = tagsRouter;
