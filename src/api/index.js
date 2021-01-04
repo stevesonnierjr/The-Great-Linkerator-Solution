@@ -19,12 +19,12 @@ const hitAPI = async (method, endpoint, bodyObj) => {
 };
 
 export const addOneToClickCount = async (linkId, currentClickCount) =>{
-  const clickCount = 1;
-  
+ const newClickCount = currentClickCount + 1
   const response = await fetch('${BASE_URL}/links/${linkID}',{
     clickCount: currentClickCount +1,
   });
-  return clickCount;
+  console.log("i AM RESPONSE: ", response);
+  return newClickCount;
 };
 
 export default hitAPI;

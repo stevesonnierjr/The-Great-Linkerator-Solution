@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import hitAPI from "../api/index";
+import addOneToClickCount from "../api";
 
 import { Card } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,6 +12,7 @@ const LinkList = ({
   setLinkComment,
   setLinkCount,
   links,
+  setLinks,
 }) => {
   const [high, setHigh] = useState(true);
   const [low, setlow] = useState(false);
@@ -26,6 +28,25 @@ const LinkList = ({
       setlow(!low);
     }
   }
+
+  const updateClickCount = async (linkId, currentClickCount) => {
+    const newClickCount = currentClickCount + 1;
+    try {
+      addOneToClickCount(linkId, newClickCount);
+      if (newClickCount) {
+        setLinks(
+          links.map((link) => {
+            if (link.id === linkId) {
+              return {...link, linkcount: newClickCount};
+
+            } else {
+              return link;
+            }
+          })
+        );
+      }
+    } catch (error){}
+  }; 
 
   return (
     <div className='link-list'>
@@ -49,7 +70,9 @@ const LinkList = ({
           {links.map((link) => {
             return (
               <tr className='link' key={link.id}>
-                <td style={{ width: "48%" }}>
+                <td
+                onClick={updateClickCount(link.id, link.clickcount)}
+                style={{ width: "48%" }}>
                   <a href={link.link} target='_blank'>
                     {link.link}
                   </a>
@@ -58,6 +81,7 @@ const LinkList = ({
                 <td style={{ width: "25%" }}>{link.comment}</td>
                 <td style={{ width: "25%" }}>{link.tags}</td>
                 <td style={{ width: "1%" }}>
+                  {link.clickcount - 1}
                   <IconButton
                     className='edit'
                     onClick={() => {
