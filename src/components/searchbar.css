@@ -1,9 +1,11 @@
-.searchbar a :hover {
+/* .searchbar a :hover {
   font-family: monospace;
   display: flex;
   align-items: center;
-}
+} */
 
 .searchbar {
   background-color: whitesmoke;
+  width: 80%;
+  border-radius: 5px;
 }

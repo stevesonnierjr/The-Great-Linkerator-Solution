@@ -19,9 +19,14 @@ body {
 
 .search-post {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex: 1;
   width: 95vw;
-  max-width: 1250px;
-  background-color: lightgreen;
+  max-width: 900px;
+  margin-bottom: 50px;
+  /* background-color: lightgreen; */
+}
+
+.post-link {
+  width: 100px;
 }

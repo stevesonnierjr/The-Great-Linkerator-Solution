@@ -15,21 +15,20 @@ linksRouter.use((req, res, next) => {
 
 linksRouter.get("/", async (req, res) => {
   const links = await getAllLinks();
-  res.send({
-    links,
-  });
+  res.send(links.rows);
 });
 
 linksRouter.post('/', async (req, res, next) => {
-  const { links, comment = '' } = req.body;
+  const { link, comment = '' } = req.body;
+  console.log(req.body);
   const linkData= {};
 
   try {
-    linkData.links = links;
+    linkData.link = link;
     linkData.comment = comment;
 
-    const link = await createLink();
-    res.send(link);
+    const newLink = await createLink(linkData);
+    res.send(newLink);
   } catch (error) {
     next(error);
   }
