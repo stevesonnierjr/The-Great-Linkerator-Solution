@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
+import Input from "@material-ui/core/Input"
 import hitAPI from "../api/index";
 import { blue } from "@material-ui/core/colors";
 
@@ -20,7 +21,7 @@ const Linkmodal = ({
 }) => {
   const [link, setLink] = useState("");
   const [comment, setComment] = useState("");
-  const [tags, setTags] = useState([]);
+  const [tag, setTag] = useState("");
 
   function clear() {
     setLink("");
@@ -28,7 +29,7 @@ const Linkmodal = ({
     setLinkComment(null);
     setLinkCount(null);
     setLinkID(null);
-    setTags([]);
+    setTag("");
   }
 
   console.log("I am postModal: ", postModal);
@@ -43,23 +44,25 @@ const Linkmodal = ({
           clear();
           setPostModal(false);
         }}>
-        <div className='post-body'>
-          <h1>Create a Link</h1>
-          <div className='form'>
+        <div className='post-content'>
+          <div className="heading">
+            <h1>Create a Link</h1>
+          </div>
+          <div className='modal-body'>
             <form
               className='post-form'
               onSubmit={(event) => {
                 event.preventDefault();
 
                 const body = {
-                  link: link,
-                  comment: comment,
+                  link,
+                  comment,
                 };
                 console.log("I am body: ", body);
                 console.log("I am link: ", body.link);
                 console.log("I am comment: ", body.comment);
 
-                hitAPI("POST", "links", body)
+                hitAPI("POST", "links/", body)
                 .then((data) => {
                   console.log("post successful!");
                   console.log("I am data", data);
@@ -70,38 +73,49 @@ const Linkmodal = ({
                 setPostModal(false);
               }}>
               <div className='inputs'>
-                <input
+                <Input
                   type='text'
                   placeholder='Enter URL exactly as it appears in browser'
                   value={link}
                   onChange={(event) => setLink(event.target.value)}
                   required
                 />
-                <textarea
+                <Input
+                  type="text"
+                  multiline="true"
                   placeholder='Enter a comment'
                   rows='4'
                   value={comment}
                   onChange={(event) => setComment(event.target.value)}
-                  required></textarea>
+                  required
+                />
+                <Input
+                  type='text'
+                  placeholder='Enter tags'
+                  value={tag}
+                  onChange={(event) => setTag(event.target.value)}
+                />
               </div>
               <div className='buttons'>
-                <Button
-                  className='cancel'
-                  variant='contained'
-                  color='secondary'
-                  onClick={() => {
-                    clear();
-                    setPostModal(false);
-                  }}>
-                  Cancel
-                </Button>
-                <Button
-                  className='submit'
-                  type='submit'
-                  variant='contained'
-                  color='primary'>
-                  Submit
-                </Button>
+                <div className="cancel">
+                  <Button
+                    variant='contained'
+                    color='secondary'
+                    onClick={() => {
+                      clear();
+                      setPostModal(false);
+                    }}>
+                    Cancel
+                  </Button>
+                </div>
+                <div className="submit">
+                  <Button
+                    type='submit'
+                    variant='contained'
+                    color='primary'>
+                    Submit
+                  </Button>
+                </div>
               </div>
             </form>
           </div>
@@ -115,7 +129,7 @@ const Linkmodal = ({
           clear();
           setEditModal(false);
         }}>
-        <div className='edit-body'>
+        <div className='edit-content'>
           <h1>Edit Link</h1>
           <div className='form'>
             <form

@@ -6,26 +6,36 @@
   overflow: auto;
 }
 
+.link-list > h2 {
+  font-weight: lighter;
+}
+
 table {
   width: 95vw;
-  max-width: 1250px;
+  max-width: 950px;
   text-align: left;
   border-collapse: collapse;
   border-bottom: none;
+  margin-top: 30px;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
   background-color: aliceblue;
-}
+} */
 
 td {
   padding: 5px;
   word-break: break-word;
+  /* border-bottom: 1px solid lightgray; */
+}
+
+table td {
+  border-bottom: 1px solid lightgray;
 }
 
 th {
   padding: 10px;
-  background-color: lightblue;
+  background-color: aliceblue;
 }
 
 .clickable {
@@ -33,8 +43,10 @@ th {
 }
 
 .clickable:hover {
-  background-color: skyblue;
+  background-color: lightcyan;
 }
+
+/* .link > tr */
 
 /* .link > td:first-of-type {
   border-left: none;

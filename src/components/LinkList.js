@@ -29,7 +29,7 @@ const LinkList = ({
 
   return (
     <div className='link-list'>
-      <h3>links</h3>
+      <h2>Links</h2>
       <table>
         <thead>
           <tr>
