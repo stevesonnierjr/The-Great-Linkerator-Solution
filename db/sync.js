@@ -1,7 +1,4 @@
-
-const client = require('./client');
-
-
+const client = require("./client");
 
 const sync = async (force = false) => {
   if (force) {
