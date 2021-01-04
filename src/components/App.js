@@ -8,16 +8,16 @@ import Linkmodal from "./Linkmodal";
 import Input from "@material-ui/core/Input";
 import addOneToClickCount from "../api";
 
-import Button from "@material-ui/core/Button";
+import Button from '@material-ui/core/Button';
 
-import "./modals.css";
-import "./header.css";
-import "./linklist.css";
-import "./searchbar.css";
+import './modals.css';
+import './header.css';
+import './linklist.css';
+import './searchbar.css';
 
 const App = () => {
   // initialLinks is temporary to help me style
-  const initialLinks = [
+  /*const initialLinks = [
     {
       id: "ab38f156-7ceb-468c-8df4-3bb640b9f77e",
       link: "https://www.google.com/",
@@ -42,23 +42,23 @@ const App = () => {
       comment: "go to amazon, go to amazon, go to amazon",
       clickcount: 15,
     },
-  ];
+  ];*/
   const [postModal, setPostModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [linkID, setLinkID] = useState(null);
   const [linkComment, setLinkComment] = useState(null);
   const [linkCount, setLinkCount] = useState(null);
-  const [links, setLinks] = useState(initialLinks); //list of all links. replace initialLinks with [] when done styling
-  const [searchTerm, setSearchTerm] = useState("");
+  const [links, setLinks] = useState([]); //list of all links. replace initialLinks with [] when done styling
+  const [searchTerm, setSearchTerm] = useState('');
   console.log(links);
 
   useEffect(() => {
-    hitAPI("GET", "links")
-    .then((data) => {
-      setLinks(data);
-    })
-    .catch(console.error);
-    }, []);
+    hitAPI('GET', 'links')
+      .then((data) => {
+        setLinks(data);
+      })
+      .catch(console.error);
+  }, []);
 
   function filterLink() {
     return links.filter((url) => {
@@ -105,7 +105,8 @@ const App = () => {
           className='post-link'
           variant='contained'
           color='primary'
-          onClick={() => setPostModal(true)}>
+          onClick={() => setPostModal(true)}
+        >
           New Link
         </Button>
       </div>
