@@ -2,6 +2,7 @@ const client = require("./client");
 const sync = require("./sync");
 
 async function createLink({ links, comment }) {
+  console.log("creating new link...");
   try {
     const {
       rows: [link],
@@ -15,30 +16,19 @@ async function createLink({ links, comment }) {
       [links, comment]
     );
 
-    console.log(link);
+    console.log("new link created!", link);
     return link;
   } catch (error) {
+    console.log("error creating new link!", error);
     throw error;
   }
 }
 
 async function updateLinks(id, fields = {}) {
-  const { comment } = fields;
-  console.log("this is id", id);
-  console.log("this is fields", fields);
+  console.log("updating link...");
   const setString = Object.keys(fields)
-    .map((key, index) => {
-      console.log("key: ", key);
-      console.log("index: ", index);
-      return `"${key}"=$${index + 1}`;
-    })
+    .map((key, index) => `"${key}"=$${index + 2}`)
     .join(", ");
-  console.log("this is fields keys: ", setString);
-
-  /*console.log('THIS IS SETSTRING', setString);
-  if (setString.length === 0) {
-    return;
-  }*/
 
   try {
     const {
@@ -47,50 +37,30 @@ async function updateLinks(id, fields = {}) {
       `
       UPDATE links
       SET ${setString}
-      WHERE "id"=${id}
+      WHERE "id"=$1
       RETURNING *;
     `,
-      Object.values(fields)
+      [id, ...Object.values(fields)]
     );
-    console.log("THIS IS LINK", link);
+    console.log("link updated!", link);
     return link;
   } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-/**
- * testing purposes
- */
-async function createInitialLinks() {
-  try {
-    await createLink({
-      links: "https://www.google.com/",
-      comment: "Search the Internet!",
-    });
-    await createLink({
-      links: "https://www.youtube.com/",
-      comment: "Watch everything!",
-    });
-    await createLink({
-      links: "https://www.amazon.com/",
-      comment: "Shop the internet!",
-    });
-  } catch (error) {
+    console.log("Error updating link!", error);
     throw error;
   }
 }
 
 async function getAllLinks() {
+  console.log("getting all links...");
   try {
     const { rows } = await client.query(`
       SELECT * 
       FROM links;
     `);
-
+    console.log("success!", { rows });
     return { rows };
   } catch (error) {
+    console.log("Error getting links!", error);
     throw error;
   }
 }
@@ -194,6 +164,31 @@ async function getAllTags() {
   } catch (error) {
     throw error;
   }
+}
+
+/**
+ * testing purposes
+ */
+async function createInitialLinks() {
+  console.log("creating initial links...");
+  try {
+    await createLink({
+      links: "https://www.google.com/",
+      comment: "Search the Internet!",
+    });
+    await createLink({
+      links: "https://www.youtube.com/",
+      comment: "Watch everything!",
+    });
+    await createLink({
+      links: "https://www.amazon.com/",
+      comment: "Shop the internet!",
+    });
+  } catch (error) {
+    throw error;
+  }
+  console.log("initial links created.");
+  console.log("if above values are undefined. then links already exist");
 }
 
 async function testDB() {

@@ -37,35 +37,21 @@ linksRouter.post("/", async (req, res, next) => {
   }
 });
 
-// linksRouter.patch('/:id', async (req, res, next) => {
-//   try {
-//     const updatedLink = await link.updateOne(
-//       { _id: req.params.id },
-//       { $set: { comment: req.body.comment } }
-//     );
-//     res.send(updatedLink);
-//   } catch (err) {
-//     res.send({ message: 'is an error message' });
-//   }
-// });
-
 linksRouter.patch("/:id", async (req, res, next) => {
-  console.log("THIS IS REQUEST PARAMS", req.params);
   const { id } = req.params;
   const { comment, clickcount } = req.body;
   const updateFields = {};
-  console.log("this is a log for id", id);
+
   if (clickcount) {
-    updateFields.clickCount = clickcount;
+    updateFields.clickcount = clickcount;
   }
   if (comment) {
     updateFields.comment = comment;
   }
-  console.log("this is updated field", updateFields);
+
   try {
     const updatedLink = await updateLinks(id, updateFields);
-    console.log("THIS IS UPDATEDLINK", updatedLink);
-    res.send({ id: updatedLink });
+    res.send(updatedLink);
   } catch ({ name, message }) {
     next({ name, message });
   }

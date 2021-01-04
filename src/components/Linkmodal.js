@@ -85,7 +85,7 @@ const Linkmodal = ({
                   type='text'
                   placeholder='Tag functions coming soon!'
                   value={tag}
-                  disabled
+                  disabled //remove this attribute once tag functions are being set up
                   onChange={(event) => setTag(event.target.value)}
                 />
               </div>
@@ -132,13 +132,21 @@ const Linkmodal = ({
                 const body = {
                   comment: linkComment,
                 };
-                console.log("I am body: ", body);
-                console.log("I am comment: ", body.comment);
 
                 hitAPI("PATCH", `links/${linkID}`, body)
                   .then((data) => {
                     console.log("update successful!");
-                    console.log(data);
+                    setLinks(
+                      links.map((link) => {
+                        if (link.id === data.id) {
+                          console.log("match found!");
+                          return { ...link, comment: data.comment };
+                        } else {
+                          console.log("match not found!");
+                          return link;
+                        }
+                      })
+                    );
                   })
                   .catch(console.error);
 
@@ -159,7 +167,7 @@ const Linkmodal = ({
                   type='text'
                   placeholder='Tag functions coming soon!'
                   value={linkTags}
-                  disabled
+                  disabled //remove this attribute once tag functions are being set up
                   onChange={(event) => setLinkTags(event.target.value)}
                 />
               </div>
