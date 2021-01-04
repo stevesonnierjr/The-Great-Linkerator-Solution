@@ -19,14 +19,9 @@ table {
   margin-top: 30px;
 }
 
-/* tr:nth-child(even) {
-  background-color: aliceblue;
-} */
-
 td {
   padding: 5px;
   word-break: break-word;
-  /* border-bottom: 1px solid lightgray; */
 }
 
 table td {
@@ -46,16 +41,9 @@ th {
   background-color: lightcyan;
 }
 
-/* .link > tr */
-
-/* .link > td:first-of-type {
-  border-left: none;
+.link:last-of-type > td {
+  border-bottom: none;
 }
-
-.link > td:last-of-type {
-  border-right: none;
-  text-align: right;
-} */
 
 .edit {
   height: 30px;
@@ -64,5 +52,9 @@ th {
 
 a {
   text-decoration: none;
-  color: blue;
+  color: #6593f5;
+}
+
+a:hover {
+  color: #4682b4;
 }

@@ -24,7 +24,12 @@ body {
   width: 95vw;
   max-width: 900px;
   margin-bottom: 50px;
-  /* background-color: lightgreen; */
+}
+
+.searchbar {
+  background-color: whitesmoke;
+  width: 80%;
+  border-radius: 5px;
 }
 
 .post-link {

@@ -9,3 +9,11 @@ Content-Type: application/json
     "comment" : "is this working"
 
 }
+
+###
+PATCH  http://localhost:3001/api/links/0df12366-98f3-46cf-ac09-943fb1a988f9/
+Content-Type: application/json
+
+{
+    "comment" : "new"
+}

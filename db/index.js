@@ -1,5 +1,5 @@
-const client = require('./client');
-const sync = require('./sync');
+const client = require("./client");
+const sync = require("./sync");
 
 async function createLink({ links, comment }) {
   try {
@@ -24,9 +24,16 @@ async function createLink({ links, comment }) {
 
 async function updateLinks(id, fields = {}) {
   const { comment } = fields;
-  console.log('this is id', id);
-  console.log('this is fields', fields);
-  const setString = Object.keys(fields);
+  console.log("this is id", id);
+  console.log("this is fields", fields);
+  const setString = Object.keys(fields)
+    .map((key, index) => {
+      console.log("key: ", key);
+      console.log("index: ", index);
+      return `"${key}"=$${index + 1}`;
+    })
+    .join(", ");
+  console.log("this is fields keys: ", setString);
 
   /*console.log('THIS IS SETSTRING', setString);
   if (setString.length === 0) {
@@ -39,15 +46,16 @@ async function updateLinks(id, fields = {}) {
     } = await client.query(
       `
       UPDATE links
-      SET comment=($1)
-      WHERE id=${id}
+      SET ${setString}
+      WHERE "id"=${id}
       RETURNING *;
     `,
-      [comment]
+      Object.values(fields)
     );
-    console.log('THIS IS LINK', link);
+    console.log("THIS IS LINK", link);
     return link;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 }
@@ -57,8 +65,18 @@ async function updateLinks(id, fields = {}) {
  */
 async function createInitialLinks() {
   try {
-    await createLink({ links: 'www.google.com', comment: 'go to google' });
-    await createLink({ links: 'www.youtube.com', comment: 'go to youtube' });
+    await createLink({
+      links: "https://www.google.com/",
+      comment: "Search the Internet!",
+    });
+    await createLink({
+      links: "https://www.youtube.com/",
+      comment: "Watch everything!",
+    });
+    await createLink({
+      links: "https://www.amazon.com/",
+      comment: "Shop the internet!",
+    });
   } catch (error) {
     throw error;
   }
@@ -132,11 +150,11 @@ async function createTags(tagList) {
 
   const valuesStringInsert = tagList
     .map((_, index) => `$${index + 1}`)
-    .join('), (');
+    .join("), (");
 
   const valuesStringSelect = tagList
     .map((_, index) => `$${index + 1}`)
-    .join(', ');
+    .join(", ");
 
   try {
     // insert all, ignoring duplicates
@@ -180,12 +198,12 @@ async function getAllTags() {
 
 async function testDB() {
   try {
-    console.log('creating initial links...');
+    console.log("creating initial links...");
     await sync();
     await createInitialLinks();
-    console.log('done!');
+    console.log("done!");
   } catch (error) {
-    console.log('error creating links!');
+    console.log("error creating links!");
     throw error;
   }
 }

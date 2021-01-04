@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import hitAPI from "../api/index";
-import addOneToClickCount from "../api";
+// import addOneToClickCount from "../api";
 
-import { Card } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -10,7 +9,6 @@ const LinkList = ({
   setEditModal,
   setLinkID,
   setLinkComment,
-  setLinkCount,
   links,
   setLinks,
 }) => {
@@ -30,23 +28,56 @@ const LinkList = ({
   }
 
   const updateClickCount = async (linkId, currentClickCount) => {
-    const newClickCount = currentClickCount + 1;
-    try {
-      addOneToClickCount(linkId, newClickCount);
-      if (newClickCount) {
-        setLinks(
-          links.map((link) => {
-            if (link.id === linkId) {
-              return {...link, linkcount: newClickCount};
+    const body = {
+      clickcount: currentClickCount + 1,
+    };
+    const endpoint = `links/${linkId}`;
+    console.log("I am clickount body: ", body);
+    console.log("I am endpoint: ", endpoint);
 
-            } else {
-              return link;
-            }
-          })
-        );
-      }
-    } catch (error){}
-  }; 
+    hitAPI("PATCH", endpoint, body)
+      .then((data) => {
+        console.log("I am clickount data: ", data);
+      })
+      .catch(console.error);
+
+    /**IMPORTANT!!!!!!!!!!!!!
+     * move the entire if block to line 43,
+     * then replace true with data.
+     *
+     * currently, the click count is updated but,
+     * increments do not survive a page refresh.
+     * Once patch routes are working, do the above steps
+     */
+    if (true) {
+      setLinks(
+        links.map((link) => {
+          if (link.id === linkId) {
+            return { ...link, clickcount: link.clickcount + 1 };
+          } else {
+            return link;
+          }
+        })
+      );
+    }
+
+    // try {
+    //   const newClickCount = await addOneToClickCount(linkId, currentClickCount);
+
+    //   if (newClickCount) {
+    //     setLinks(
+    //       links.map((link) => {
+    //         if (link.id === linkId) {
+    //           return {...link, clickcount: link.clickcount + 1};
+
+    //         } else {
+    //           return link;
+    //         }
+    //       })
+    //     );
+    //   }
+    // } catch (error){}
+  };
 
   return (
     <div className='link-list'>
@@ -70,10 +101,11 @@ const LinkList = ({
           {links.map((link) => {
             return (
               <tr className='link' key={link.id}>
-                <td
-                onClick={updateClickCount(link.id, link.clickcount)}
-                style={{ width: "48%" }}>
-                  <a href={link.link} target='_blank'>
+                <td style={{ width: "48%" }}>
+                  <a
+                    href={link.link}
+                    target='_blank'
+                    onClick={() => updateClickCount(link.id, link.clickcount)}>
                     {link.link}
                   </a>
                 </td>
@@ -81,13 +113,11 @@ const LinkList = ({
                 <td style={{ width: "25%" }}>{link.comment}</td>
                 <td style={{ width: "25%" }}>{link.tags}</td>
                 <td style={{ width: "1%" }}>
-                  {link.clickcount - 1}
                   <IconButton
                     className='edit'
                     onClick={() => {
                       setLinkID(link.id);
                       setLinkComment(link.comment);
-                      setLinkCount(link.clickCount);
                       setEditModal(true);
                     }}>
                     <EditIcon className='icon' />

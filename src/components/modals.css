@@ -10,9 +10,9 @@
   flex-direction: column;
   align-items: center;
   position: fixed;
-  height: 95%;
+  height: 800px;
   width: 80%;
-  max-width: 850px;
+  max-width: 700px;
   background-color: white;
   border-radius: 5px;
   outline: none;
@@ -26,21 +26,23 @@
 .heading {
   flex: 1;
   text-align: center;
-  padding: 20px 0px 50px;
+  padding: 20px 50px 50px 50px;
   width: 100%;
 }
 
 .heading > h1 {
   font-weight: normal;
+  border-bottom: 1px solid lightgray;
 }
 
 .modal-body {
   flex: 9;
   width: 100%;
-  padding: 0px 100px 100px 100px;
+  padding: 0px 50px 50px 50px;
 }
 
-.post-form {
+.post-form,
+.edit-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,18 +59,16 @@
   margin-bottom: 100px;
 }
 
-.inputs input, .inputs textarea {
+.inputs input,
+.inputs textarea {
   background-color: whitesmoke;
   border-radius: 5px;
 }
-
-
 
 .buttons {
   display: flex;
   flex: 1;
   width: 100%;
-  
 }
 
 .cancel {

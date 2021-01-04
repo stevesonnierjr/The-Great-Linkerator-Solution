@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
-import Input from "@material-ui/core/Input"
+import Input from "@material-ui/core/Input";
 import hitAPI from "../api/index";
-import { blue } from "@material-ui/core/colors";
 
 const Linkmodal = ({
   postModal,
@@ -14,26 +13,22 @@ const Linkmodal = ({
   setLinkID,
   linkComment,
   setLinkComment,
-  linkCount,
-  setLinkCount,
   links,
   setLinks,
+  linkTags,
+  setLinkTags,
 }) => {
   const [link, setLink] = useState("");
   const [comment, setComment] = useState("");
   const [tag, setTag] = useState("");
 
   function clear() {
-    setLink('');
-    setComment('');
+    setLink("");
+    setComment("");
     setLinkComment(null);
-    setLinkCount(null);
     setLinkID(null);
     setTag("");
   }
-
-  console.log('I am postModal: ', postModal);
-  console.log('I am editModal: ', editModal);
 
   return (
     <>
@@ -45,7 +40,7 @@ const Linkmodal = ({
           setPostModal(false);
         }}>
         <div className='post-content'>
-          <div className="heading">
+          <div className='heading'>
             <h1>Create a Link</h1>
           </div>
           <div className='modal-body'>
@@ -58,32 +53,28 @@ const Linkmodal = ({
                   link,
                   comment,
                 };
-                console.log('I am body: ', body);
-                console.log('I am link: ', body.link);
-                console.log('I am comment: ', body.comment);
 
-                hitAPI('POST', 'links', body)
+                hitAPI("POST", "links", body)
                   .then((data) => {
-                    console.log('post successful!');
-                    console.log('I am data', data);
+                    console.log("post successful!");
+                    setLinks([data, ...links]);
                   })
                   .catch(console.error);
 
                 clear();
                 setPostModal(false);
-              }}
-            >
+              }}>
               <div className='inputs'>
                 <Input
-                  type='text'
-                  placeholder='Enter URL exactly as it appears in browser'
+                  type='url'
+                  placeholder='https://example.com'
                   value={link}
                   onChange={(event) => setLink(event.target.value)}
                   required
                 />
                 <Input
-                  type="text"
-                  multiline="true"
+                  type='text'
+                  multiline={true}
                   placeholder='Enter a comment'
                   rows='4'
                   value={comment}
@@ -92,13 +83,14 @@ const Linkmodal = ({
                 />
                 <Input
                   type='text'
-                  placeholder='Enter tags'
+                  placeholder='Tag functions coming soon!'
                   value={tag}
+                  disabled
                   onChange={(event) => setTag(event.target.value)}
                 />
               </div>
               <div className='buttons'>
-                <div className="cancel">
+                <div className='cancel'>
                   <Button
                     variant='contained'
                     color='secondary'
@@ -109,11 +101,8 @@ const Linkmodal = ({
                     Cancel
                   </Button>
                 </div>
-                <div className="submit">
-                  <Button
-                    type='submit'
-                    variant='contained'
-                    color='primary'>
+                <div className='submit'>
+                  <Button type='submit' variant='contained' color='primary'>
                     Submit
                   </Button>
                 </div>
@@ -131,8 +120,10 @@ const Linkmodal = ({
           setEditModal(false);
         }}>
         <div className='edit-content'>
-          <h1>Edit Link</h1>
-          <div className='form'>
+          <div className='heading'>
+            <h1>Edit Link</h1>
+          </div>
+          <div className='modal-body'>
             <form
               className='edit-form'
               onSubmit={(event) => {
@@ -141,49 +132,59 @@ const Linkmodal = ({
                 const body = {
                   comment: linkComment,
                 };
-                console.log('I am body: ', body);
-                console.log('I am comment: ', body.comment);
+                console.log("I am body: ", body);
+                console.log("I am comment: ", body.comment);
 
-                hitAPI('PATCH', `links/${linkID}`, body)
+                hitAPI("PATCH", `links/${linkID}`, body)
                   .then((data) => {
-                    console.log('update successful!');
+                    console.log("update successful!");
                     console.log(data);
                   })
                   .catch(console.error);
 
                 clear();
                 setEditModal(false);
-              }}
-            >
+              }}>
               <div className='inputs'>
-                <textarea
+                <Input
+                  type='text'
+                  multiline={true}
                   placeholder='Enter a comment'
                   rows='4'
                   value={linkComment}
                   onChange={(event) => setLinkComment(event.target.value)}
                   required
-                ></textarea>
+                />
+                <Input
+                  type='text'
+                  placeholder='Tag functions coming soon!'
+                  value={linkTags}
+                  disabled
+                  onChange={(event) => setLinkTags(event.target.value)}
+                />
               </div>
               <div className='buttons'>
-                <Button
-                  className='cancel'
-                  variant='contained'
-                  color='secondary'
-                  onClick={() => {
-                    clear();
-                    setEditModal(false);
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  className='submit'
-                  type='submit'
-                  variant='contained'
-                  color='primary'
-                >
-                  Submit
-                </Button>
+                <div className='cancel'>
+                  <Button
+                    className='cancel'
+                    variant='contained'
+                    color='secondary'
+                    onClick={() => {
+                      clear();
+                      setEditModal(false);
+                    }}>
+                    Cancel
+                  </Button>
+                </div>
+                <div className='submit'>
+                  <Button
+                    className='submit'
+                    type='submit'
+                    variant='contained'
+                    color='primary'>
+                    Submit
+                  </Button>
+                </div>
               </div>
             </form>
           </div>
