@@ -4,11 +4,74 @@
   justify-content: center;
 }
 
-.post-body,
-.edit-body {
-  position: absolute;
-  height: 300px;
-  width: 400px;
+.post-content,
+.edit-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  height: 95%;
+  width: 80%;
+  max-width: 850px;
   background-color: white;
   border-radius: 5px;
+  outline: none;
+}
+
+.edit-content {
+  height: 600px;
+  width: 500px;
+}
+
+.heading {
+  flex: 1;
+  text-align: center;
+  padding: 20px 0px 50px;
+  width: 100%;
+}
+
+.heading > h1 {
+  font-weight: normal;
+}
+
+.modal-body {
+  flex: 9;
+  width: 100%;
+  padding: 0px 100px 100px 100px;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 9;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.inputs input, .inputs textarea {
+  background-color: whitesmoke;
+  border-radius: 5px;
+}
+
+
+
+.buttons {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  
+}
+
+.cancel {
+  order: 2;
+  margin-left: 20px;
 }
