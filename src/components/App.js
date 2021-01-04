@@ -7,6 +7,7 @@ import Header from "./Header";
 import LinkList from "./LinkList";
 import Linkmodal from "./Linkmodal";
 import Input from "@material-ui/core/Input";
+import addOneToClickCount from "../api";
 
 import Button from "@material-ui/core/Button";
 
@@ -66,6 +67,27 @@ const App = () => {
     });
   }
 
+  const updateClickCount = async (linkId, currentClickCount) =>{
+    try {
+      const newClickCount = await addOneToClickCount(
+        linkId,
+        currentClickCount
+      );
+      if (newClickCount) {
+        setLinks(
+          links.map((link) => {
+            if (link.id === linkId) {
+              return {...link, linkCount: link.linkCount + 1};
+
+            } else {
+              return link;
+            }
+          })
+        );
+      }
+    } catch (error){}
+  };
+
   return (
     <>
       <Header />
@@ -110,6 +132,7 @@ const App = () => {
         setLinks={setLinks}
         links={filterLink()}
       />
+      <div>CLICKCOUNT {linkCount}</div>
     </>
   );
 };
