@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
-import hitAPI from "../api/index";
-import { blue } from "@material-ui/core/colors";
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
+import hitAPI from '../api/index';
+import { blue } from '@material-ui/core/colors';
 
 const Linkmodal = ({
   postModal,
@@ -18,21 +18,21 @@ const Linkmodal = ({
   links,
   setLinks,
 }) => {
-  const [link, setLink] = useState("");
-  const [comment, setComment] = useState("");
+  const [link, setLink] = useState('');
+  const [comment, setComment] = useState('');
   const [tags, setTags] = useState([]);
 
   function clear() {
-    setLink("");
-    setComment("");
+    setLink('');
+    setComment('');
     setLinkComment(null);
     setLinkCount(null);
     setLinkID(null);
     setTags([]);
   }
 
-  console.log("I am postModal: ", postModal);
-  console.log("I am editModal: ", editModal);
+  console.log('I am postModal: ', postModal);
+  console.log('I am editModal: ', editModal);
 
   return (
     <>
@@ -42,7 +42,8 @@ const Linkmodal = ({
         onClose={() => {
           clear();
           setPostModal(false);
-        }}>
+        }}
+      >
         <div className='post-body'>
           <h1>Create a Link</h1>
           <div className='form'>
@@ -52,23 +53,24 @@ const Linkmodal = ({
                 event.preventDefault();
 
                 const body = {
-                  link: link,
+                  links: link,
                   comment: comment,
                 };
-                console.log("I am body: ", body);
-                console.log("I am link: ", body.link);
-                console.log("I am comment: ", body.comment);
+                console.log('I am body: ', body);
+                console.log('I am link: ', body.link);
+                console.log('I am comment: ', body.comment);
 
-                // hitAPI("POST", "links", body)
-                // .then((data) => {
-                //   console.log("post successful!");
-                //   console.log("I am data", data);
-                // })
-                // .catch(console.error);
+                hitAPI('POST', 'links', body)
+                  .then((data) => {
+                    console.log('post successful!');
+                    console.log('I am data', data);
+                  })
+                  .catch(console.error);
 
                 clear();
                 setPostModal(false);
-              }}>
+              }}
+            >
               <div className='inputs'>
                 <input
                   type='text'
@@ -82,7 +84,8 @@ const Linkmodal = ({
                   rows='4'
                   value={comment}
                   onChange={(event) => setComment(event.target.value)}
-                  required></textarea>
+                  required
+                ></textarea>
               </div>
               <div className='buttons'>
                 <Button
@@ -92,14 +95,16 @@ const Linkmodal = ({
                   onClick={() => {
                     clear();
                     setPostModal(false);
-                  }}>
+                  }}
+                >
                   Cancel
                 </Button>
                 <Button
                   className='submit'
                   type='submit'
                   variant='contained'
-                  color='primary'>
+                  color='primary'
+                >
                   Submit
                 </Button>
               </div>
@@ -114,7 +119,8 @@ const Linkmodal = ({
         onClose={() => {
           clear();
           setEditModal(false);
-        }}>
+        }}
+      >
         <div className='edit-body'>
           <h1>Edit Link</h1>
           <div className='form'>
@@ -126,26 +132,28 @@ const Linkmodal = ({
                 const body = {
                   comment: linkComment,
                 };
-                console.log("I am body: ", body);
-                console.log("I am comment: ", body.comment);
+                console.log('I am body: ', body);
+                console.log('I am comment: ', body.comment);
 
-                // hitAPI("PATCH", `links/${linkID}`, body)
-                // .then((data) => {
-                //   console.log("update successful!")
-                //   console.log(data)
-                // })
-                // .catch(console.error);
+                hitAPI('PATCH', `links/${linkID}`, body)
+                  .then((data) => {
+                    console.log('update successful!');
+                    console.log(data);
+                  })
+                  .catch(console.error);
 
                 clear();
                 setEditModal(false);
-              }}>
+              }}
+            >
               <div className='inputs'>
                 <textarea
                   placeholder='Enter a comment'
                   rows='4'
                   value={linkComment}
                   onChange={(event) => setLinkComment(event.target.value)}
-                  required></textarea>
+                  required
+                ></textarea>
               </div>
               <div className='buttons'>
                 <Button
@@ -155,14 +163,16 @@ const Linkmodal = ({
                   onClick={() => {
                     clear();
                     setEditModal(false);
-                  }}>
+                  }}
+                >
                   Cancel
                 </Button>
                 <Button
                   className='submit'
                   type='submit'
                   variant='contained'
-                  color='primary'>
+                  color='primary'
+                >
                   Submit
                 </Button>
               </div>

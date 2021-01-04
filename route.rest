@@ -1,0 +1,11 @@
+GET  http://localhost:3001/api/links
+
+###
+POST http://localhost:3001/api/links
+Content-Type: application/json
+
+{
+    "links" : "http:www.walmart.com",
+    "comment" : "is this working"
+
+}

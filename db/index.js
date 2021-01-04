@@ -1,5 +1,5 @@
-const client = require("./client");
-const sync = require("./sync");
+const client = require('./client');
+const sync = require('./sync');
 
 async function createLink({ links, comment }) {
   try {
@@ -23,28 +23,30 @@ async function createLink({ links, comment }) {
 }
 
 async function updateLinks(id, fields = {}) {
-  const setString = Object.keys(fields)
-    .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(', ');
+  const { comment } = fields;
+  console.log('this is id', id);
+  console.log('this is fields', fields);
+  const setString = Object.keys(fields);
 
+  /*console.log('THIS IS SETSTRING', setString);
   if (setString.length === 0) {
     return;
-  }
+  }*/
 
   try {
     const {
-      rows: [links],
+      rows: [link],
     } = await client.query(
       `
       UPDATE links
-      SET ${setString}
+      SET comment=($1)
       WHERE id=${id}
       RETURNING *;
     `,
-      Object.values(fields)
+      [comment]
     );
-
-    return links;
+    console.log('THIS IS LINK', link);
+    return link;
   } catch (error) {
     throw error;
   }
@@ -55,8 +57,8 @@ async function updateLinks(id, fields = {}) {
  */
 async function createInitialLinks() {
   try {
-    await createLink({ links: "www.google.com", comment: "go to google" });
-    await createLink({ links: "www.youtube.com", comment: "go to youtube" });
+    await createLink({ links: 'www.google.com', comment: 'go to google' });
+    await createLink({ links: 'www.youtube.com', comment: 'go to youtube' });
   } catch (error) {
     throw error;
   }
@@ -178,12 +180,12 @@ async function getAllTags() {
 
 async function testDB() {
   try {
-    console.log("creating initial links...");
+    console.log('creating initial links...');
     await sync();
     await createInitialLinks();
-    console.log("done!");
+    console.log('done!');
   } catch (error) {
-    console.log("error creating links!");
+    console.log('error creating links!');
     throw error;
   }
 }
