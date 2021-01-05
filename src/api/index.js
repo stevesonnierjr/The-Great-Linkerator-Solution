@@ -1,4 +1,4 @@
-const BASE_URL = "https://linkerator-mh-br-kj-ss.herokuapp.com/api/";
+const BASE_URL = "http://localhost:3001/api/";
 
 const hitAPI = async (method, endpoint, bodyObj) => {
   console.log("sending ", method, " request");
