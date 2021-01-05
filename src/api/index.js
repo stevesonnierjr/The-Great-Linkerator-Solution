@@ -1,4 +1,4 @@
-const BASE_URL = "https://loving-swanson-c36482.netlify.app//api/";
+const BASE_URL = "/api/";
 
 const hitAPI = async (method, endpoint, bodyObj) => {
   console.log("sending ", method, " request");
