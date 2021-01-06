@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3001/api/";
+const BASE_URL = "/api";
 
 const hitAPI = async (method, endpoint, bodyObj) => {
   console.log("sending ", method, " request");
@@ -12,7 +12,7 @@ const hitAPI = async (method, endpoint, bodyObj) => {
   if (bodyObj) {
     payload.body = JSON.stringify(bodyObj);
   }
-  const response = await fetch(`${BASE_URL}${endpoint}`, payload);
+  const response = await fetch(`${BASE_URL}/${endpoint}`, payload);
   const data = await response.json();
 
   return data;
